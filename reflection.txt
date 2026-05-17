@@ -1,0 +1,28 @@
+SimplifiQ AI Software Developer Intern Assessment - Reflection
+
+Project Overview
+I built a FastAPI-based lead automation prototype that captures prospect information, validates the submitted data, enriches company details from the submitted website, generates personalized audit content, creates a PDF report, attempts email delivery, and tracks the full workflow through an internal dashboard.
+
+Approach
+I focused on building a complete end-to-end workflow rather than only isolated features. The system starts with a lead intake form, stores the lead in SQLite, scrapes public website content using Requests and BeautifulSoup, generates structured audit sections using OpenAI when available, and falls back to a rule-based generator when the AI API is unavailable. The generated content is rendered into a professional PDF report and can be downloaded from the dashboard.
+
+Key Design Decisions
+I used FastAPI because it is lightweight, clean, and suitable for building workflow-based backend prototypes quickly. I separated the logic into service files for enrichment, AI generation, PDF generation, email delivery, and Google Sheets logging. This keeps the route layer readable and makes the system easier to maintain.
+
+Fallback Handling
+A major focus was graceful failure handling. If website scraping fails, the app creates fallback enrichment from submitted company details. If the OpenAI API key is missing or quota-limited, the app uses a rule-based report generator. If SMTP credentials are missing, the app skips email delivery safely instead of crashing. If Google Sheets is not configured, logging is skipped safely. These statuses are visible in the dashboard.
+
+Tradeoffs
+The current prototype runs the workflow synchronously during form submission. This keeps the assessment simple to run and review, but in production I would move enrichment, report generation, email delivery, and Sheets logging to a background queue such as Celery, RQ, or Dramatiq. I used SQLite for ease of local setup, but PostgreSQL would be preferred for production. The dashboard is intentionally simple and does not include authentication; in production it should be protected.
+
+Bonus Work
+I implemented optional Google Sheets logging. When configured with a service account and Sheet ID, the app appends lead data including timestamp, name, email, company, website, report status, and email status. If not configured, it is skipped safely.
+
+Limitations
+The website enrichment uses basic scraping, so JavaScript-heavy or blocked websites may return limited data. OpenAI, SMTP, and Google Sheets integrations require private credentials that should not be committed to GitHub. The Google Drive PDF archiving bonus was not implemented, but generated PDFs are stored locally and can be downloaded through the dashboard.
+
+What I Would Improve Next
+With more time, I would add a background worker queue, PostgreSQL, admin authentication, retry logic, Google Drive PDF archiving, better duplicate lead detection, tests, and deployment on Render or a similar platform.
+
+Final Note
+The project is designed to demonstrate practical workflow automation, clean backend structure, fallback-aware system design, and clear documentation.
