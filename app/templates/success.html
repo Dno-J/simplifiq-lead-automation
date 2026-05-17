@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-card success-card">
+    <div class="success-icon">✓</div>
+
+    <h1>Lead Workflow Completed</h1>
+
+    <p class="subtitle">
+        Thank you, {{ lead.full_name }}. Your company details for
+        <strong>{{ lead.company_name }}</strong> have moved through the automated
+        intake, enrichment, report generation, email delivery attempt, and logging workflow.
+    </p>
+
+    <div class="summary-box">
+        <h2>Workflow Summary</h2>
+
+        <p><strong>Email:</strong> {{ lead.email }}</p>
+        <p><strong>Website:</strong> {{ lead.company_website }}</p>
+
+        <p><strong>Report Status:</strong> {{ lead.report_status }}</p>
+        <p><strong>Email Status:</strong> {{ lead.email_status }}</p>
+        <p><strong>Sheets Status:</strong> {{ lead.sheets_status }}</p>
+        <p><strong>Enrichment Status:</strong> {{ lead.enrichment_status }}</p>
+        <p><strong>AI Generation Status:</strong> {{ lead.ai_generation_status }}</p>
+
+        {% if lead.email_sent_at %}
+            <p><strong>Email Sent At:</strong> {{ lead.email_sent_at }}</p>
+        {% endif %}
+
+        {% if lead.sheets_logged_at %}
+            <p><strong>Sheets Logged At:</strong> {{ lead.sheets_logged_at }}</p>
+        {% endif %}
+
+        {% if lead.report_file_path %}
+            <p><strong>PDF Path:</strong> {{ lead.report_file_path }}</p>
+
+            <p>
+                <a class="download-link" href="/leads/{{ lead.id }}/download-report">
+                    Download PDF Report
+                </a>
+            </p>
+        {% endif %}
+    </div>
+
+    <div class="summary-box">
+        <h2>Company Enrichment Preview</h2>
+
+        <p>
+            <strong>Website Title:</strong>
+            {{ lead.website_title or "Not available" }}
+        </p>
+
+        <p>
+            <strong>Meta Description:</strong>
+            {{ lead.website_meta_description or "Not available" }}
+        </p>
+
+        <p>
+            <strong>Detected Keywords:</strong>
+            {{ lead.detected_keywords or "Not available" }}
+        </p>
+
+        {% if lead.website_headings %}
+            <p>
+                <strong>Headings:</strong>
+                {{ lead.website_headings }}
+            </p>
+        {% endif %}
+
+        {% if lead.error_message %}
+            <p>
+                <strong>Fallback / Error Note:</strong>
+                {{ lead.error_message }}
+            </p>
+        {% endif %}
+    </div>
+
+    <div class="summary-box report-preview">
+        <h2>Generated Audit Preview</h2>
+
+        <h3>Executive Summary</h3>
+        <p>{{ lead.executive_summary or "Not generated" }}</p>
+
+        <h3>Company Overview</h3>
+        <p>{{ lead.company_overview or "Not generated" }}</p>
+
+        <h3>Observed Positioning</h3>
+        <p>{{ lead.observed_positioning or "Not generated" }}</p>
+
+        <h3>Potential Pain Points</h3>
+        <pre>{{ lead.potential_pain_points or "Not generated" }}</pre>
+
+        <h3>AI Automation Opportunities</h3>
+        <pre>{{ lead.automation_opportunities or "Not generated" }}</pre>
+
+        <h3>Recommended Workflow</h3>
+        <pre>{{ lead.recommended_workflow or "Not generated" }}</pre>
+
+        <h3>Next Steps</h3>
+        <pre>{{ lead.next_steps or "Not generated" }}</pre>
+    </div>
+
+    <div class="link-row">
+        <a class="secondary-link" href="/leads/form">
+            Submit another lead
+        </a>
+
+        <a class="secondary-link" href="/leads/dashboard">
+            View dashboard
+        </a>
+    </div>
+</section>
+{% endblock %}

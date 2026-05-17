@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SimplifiQ AI Opportunity Audit</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 22mm 18mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.58;
+            font-size: 13px;
+        }
+
+        .cover {
+            border-bottom: 4px solid #2563eb;
+            padding-bottom: 28px;
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            color: #2563eb;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 34px;
+            line-height: 1.08;
+            letter-spacing: -0.04em;
+            color: #0f172a;
+            margin: 0 0 14px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #475569;
+            max-width: 680px;
+            margin-bottom: 24px;
+        }
+
+        .meta-grid {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 22px;
+        }
+
+        .meta-row {
+            display: table-row;
+        }
+
+        .meta-label,
+        .meta-value {
+            display: table-cell;
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .meta-label {
+            width: 32%;
+            background: #f8fafc;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .meta-value {
+            color: #475569;
+        }
+
+        .section {
+            margin-top: 24px;
+            page-break-inside: avoid;
+        }
+
+        h2 {
+            font-size: 19px;
+            color: #0f172a;
+            margin: 0 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+
+        .box {
+            border: 1px solid #dbeafe;
+            background: #eff6ff;
+            padding: 14px 16px;
+            border-radius: 10px;
+        }
+
+        .muted {
+            color: #64748b;
+        }
+
+        .bullet-block {
+            white-space: pre-line;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 16px;
+            border-radius: 10px;
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            padding-top: 14px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        .priority-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .priority-table th,
+        .priority-table td {
+            border: 1px solid #e2e8f0;
+            padding: 9px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .priority-table th {
+            background: #f1f5f9;
+            color: #334155;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cover">
+        <div class="brand">SimplifiQ AI Opportunity Audit</div>
+
+        <h1>Personalized AI Automation Report for {{ lead.company_name }}</h1>
+
+        <p class="subtitle">
+            A practical first-look audit prepared for {{ lead.full_name }},
+            focused on lead intake, company research, prospect qualification,
+            personalized outreach, and operational automation opportunities.
+        </p>
+
+        <div class="meta-grid">
+            <div class="meta-row">
+                <div class="meta-label">Prepared For</div>
+                <div class="meta-value">{{ lead.full_name }}</div>
+            </div>
+
+            <div class="meta-row">
+                <div class="meta-label">Company</div>
+                <div class="meta-value">{{ lead.company_name }}</div>
+            </div>
+
+            <div class="meta-row">
+                <div class="meta-label">Website</div>
+                <div class="meta-value">{{ lead.company_website }}</div>
+            </div>
+
+            <div class="meta-row">
+                <div class="meta-label">Industry</div>
+                <div class="meta-value">{{ lead.industry or "Not specified" }}</div>
+            </div>
+
+            <div class="meta-row">
+                <div class="meta-label">Generated On</div>
+                <div class="meta-value">{{ generated_at }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>1. Executive Summary</h2>
+        <div class="box">
+            <p>{{ report.executive_summary }}</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Company Overview</h2>
+        <p>{{ report.company_overview }}</p>
+    </div>
+
+    <div class="section">
+        <h2>3. Observed Positioning</h2>
+        <p>{{ report.observed_positioning }}</p>
+    </div>
+
+    <div class="section">
+        <h2>4. Potential Pain Points</h2>
+        <div class="bullet-block">{{ report.potential_pain_points }}</div>
+    </div>
+
+    <div class="section">
+        <h2>5. AI Automation Opportunities</h2>
+        <div class="bullet-block">{{ report.automation_opportunities }}</div>
+    </div>
+
+    <div class="section">
+        <h2>6. Recommended Workflow</h2>
+        <div class="bullet-block">{{ report.recommended_workflow }}</div>
+    </div>
+
+    <div class="section">
+        <h2>7. Suggested Priority Matrix</h2>
+
+        <table class="priority-table">
+            <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Opportunity</th>
+                    <th>Why It Matters</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>High Impact / Low Effort</td>
+                    <td>Automated lead intake and enrichment</td>
+                    <td>Reduces manual prospect research immediately after form submission.</td>
+                </tr>
+
+                <tr>
+                    <td>High Impact / Medium Effort</td>
+                    <td>Personalized audit/report generation</td>
+                    <td>Creates a stronger first impression and improves follow-up quality.</td>
+                </tr>
+
+                <tr>
+                    <td>Long-Term Opportunity</td>
+                    <td>Lead scoring and CRM workflow automation</td>
+                    <td>Helps sales or consulting teams prioritize best-fit opportunities.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>8. Recommended Next Steps</h2>
+        <div class="bullet-block">{{ report.next_steps }}</div>
+    </div>
+
+    {% if lead.message %}
+    <div class="section">
+        <h2>9. Prospect Context</h2>
+        <p class="muted">
+            Submitted note: {{ lead.message }}
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="footer-note">
+        This report was generated automatically by the SimplifiQ Lead Automation prototype.
+        It uses submitted lead details, public website context where available, and AI-assisted
+        or rule-based business analysis. Recommendations are intended as a starting point for
+        discovery and should be validated with the prospect before implementation.
+    </div>
+</body>
+</html>

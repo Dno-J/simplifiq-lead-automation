@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-card">
+    <div class="badge">AI Lead Intelligence Prototype</div>
+
+    <h1>Get Your Personalized AI Opportunity Audit</h1>
+
+    <p class="subtitle">
+        Submit your company details and receive a personalized report showing
+        where AI automation can improve lead handling, operations, and customer engagement.
+    </p>
+
+    {% if error %}
+        <div class="error-box">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <form class="lead-form" action="/leads/submit" method="post">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="full_name">Full Name *</label>
+                <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    required
+                    minlength="2"
+                    maxlength="100"
+                    value="{{ form_data.get('full_name', '') }}"
+                    placeholder="Dino Jackson"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value="{{ form_data.get('email', '') }}"
+                    placeholder="you@company.com"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="company_name">Company Name *</label>
+                <input
+                    type="text"
+                    id="company_name"
+                    name="company_name"
+                    required
+                    minlength="2"
+                    maxlength="150"
+                    value="{{ form_data.get('company_name', '') }}"
+                    placeholder="Acme Finance"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="company_website">Company Website *</label>
+                <input
+                    type="url"
+                    id="company_website"
+                    name="company_website"
+                    required
+                    value="{{ form_data.get('company_website', '') }}"
+                    placeholder="https://example.com"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="industry">Industry</label>
+            <input
+                type="text"
+                id="industry"
+                name="industry"
+                maxlength="100"
+                value="{{ form_data.get('industry', '') }}"
+                placeholder="Finance, SaaS, Consulting, B2B Services..."
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="message">What would you like to improve?</label>
+            <textarea
+                id="message"
+                name="message"
+                maxlength="1000"
+                rows="5"
+                placeholder="Example: We want to automate lead follow-ups and qualify prospects faster."
+            >{{ form_data.get('message', '') }}</textarea>
+        </div>
+
+        <button type="submit">
+            Generate AI Audit Report
+        </button>
+
+        <p class="form-note">
+            This prototype validates the lead, stores the submission, and will later generate
+            a personalized PDF report automatically.
+        </p>
+    </form>
+</section>
+{% endblock %}

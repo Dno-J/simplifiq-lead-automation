@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dashboard-card">
+    <div class="dashboard-header">
+        <div>
+            <div class="badge">Internal Workflow Dashboard</div>
+
+            <h1>Submitted Leads</h1>
+
+            <p class="subtitle">
+                Review lead submissions, enrichment results, AI generation status,
+                PDF output, email delivery, Google Sheets logging, and fallback/error notes.
+            </p>
+        </div>
+
+        <a class="dashboard-action" href="/leads/form">
+            New Lead
+        </a>
+    </div>
+
+    {% if leads %}
+        <div class="table-wrapper">
+            <table class="leads-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Lead</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th>PDF</th>
+                        <th>Error / Notes</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for lead in leads %}
+                        <tr>
+                            <td>#{{ lead.id }}</td>
+
+                            <td>
+                                <strong>{{ lead.full_name }}</strong>
+                                <span>{{ lead.email }}</span>
+                            </td>
+
+                            <td>
+                                <strong>{{ lead.company_name }}</strong>
+                                <span>{{ lead.company_website }}</span>
+
+                                {% if lead.industry %}
+                                    <span>{{ lead.industry }}</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="status-stack">
+                                    <span class="status-pill">
+                                        Report: {{ lead.report_status }}
+                                    </span>
+
+                                    <span class="status-pill muted-pill">
+                                        Email: {{ lead.email_status }}
+                                    </span>
+
+                                    <span class="status-pill muted-pill">
+                                        Sheets: {{ lead.sheets_status }}
+                                    </span>
+
+                                    <span class="status-pill muted-pill">
+                                        Enrich: {{ lead.enrichment_status }}
+                                    </span>
+
+                                    <span class="status-pill muted-pill">
+                                        AI: {{ lead.ai_generation_status }}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td>
+                                {% if lead.report_file_path %}
+                                    <a class="download-link" href="/leads/{{ lead.id }}/download-report">
+                                        Download PDF
+                                    </a>
+
+                                    <span class="path-text">
+                                        {{ lead.report_file_path }}
+                                    </span>
+                                {% else %}
+                                    <span class="empty-text">No PDF</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if lead.error_message %}
+                                    <span class="error-text">
+                                        {{ lead.error_message }}
+                                    </span>
+                                {% else %}
+                                    <span class="empty-text">None</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="date-text">
+                                    {{ lead.created_at }}
+                                </span>
+
+                                {% if lead.email_sent_at %}
+                                    <span class="date-text">
+                                        Email sent: {{ lead.email_sent_at }}
+                                    </span>
+                                {% endif %}
+
+                                {% if lead.sheets_logged_at %}
+                                    <span class="date-text">
+                                        Sheets logged: {{ lead.sheets_logged_at }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>No leads submitted yet</h2>
+
+            <p>
+                Submit a lead first to see workflow results here.
+            </p>
+
+            <a class="dashboard-action" href="/leads/form">
+                Submit Lead
+            </a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
