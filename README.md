@@ -47,6 +47,7 @@ When a prospect submits a form, the system automatically:
 - [Security Notes](#security-notes)
 - [Production Improvements](#production-improvements)
 - [Local Testing Checklist](#local-testing-checklist)
+- [Deployment Note](#deployment-note)
 - [Final Notes](#final-notes)
 
 ## Core Features
@@ -771,6 +772,11 @@ http://127.0.0.1:8000/leads/dashboard
 ```
 
 ---
+## Deployment Note
+
+A live demo is not included because the workflow depends on private credential-based integrations such as OpenAI, SMTP email delivery, and Google Sheets logging. These credentials are intentionally managed through local environment variables and are not committed to GitHub.
+
+The application is fully runnable locally using the setup instructions above. Without credentials, it still demonstrates the complete workflow through fallback AI report generation, local PDF creation, skipped email status handling, skipped Sheets logging, and the internal dashboard.
 
 ## Final Notes
 
@@ -786,3 +792,4 @@ It demonstrates:
 * Email automation readiness
 * Optional Google Sheets bonus integration
 * Clear status visibility through an admin dashboard
+
